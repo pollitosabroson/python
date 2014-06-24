@@ -8,6 +8,11 @@ reader = csv.reader(file)
 for line in reader:
 	dele = ""
 	cate = ""
+	col = ""
+	sub1 = ""
+	sub2 = ""
+	sub3 = ""
+	rutas = ""
 	count = count + 1
 	nombre = line[1]
 	amaterno = line[2]
@@ -43,18 +48,37 @@ for line in reader:
 	rowscate = cur.fetchall()
 	for ro in rowscate:
 		cate = ro
-		print cate
+	querysub1 = """SELECT id FROM app_subcategoria1 WHERE "descripcion_SubCategoria1" = '%s'""" % subcategoria1
+	cur.execute(querysub1)
+	rowsub1 = cur.fetchall()
+	for rows1 in rowsub1:
+		sub1 = rows1
+	querysub2 = """SELECT id FROM app_subcategoria2 WHERE "descripcion_SubCategoria2" = '%s'""" % subcategoria2
+	cur.execute(querysub2)
+	rowsub2 = cur.fetchall()
+	for rows2 in rowsub2:
+		sub2 = rows2
+	querysub3 = """SELECT id FROM app_subcategoria3 WHERE "descripcion_SubCategoria3" = '%s'""" % subcategoria3
+	cur.execute(querysub3)
+	rowsub3 = cur.fetchall()
+	for rows3 in rowsub3:
+		sub3 = rows3
 	querydel = """SELECT id FROM app_delegacion_frente WHERE "descripcion_Delegacion" = '%s'""" % delegacion.title()
 	cur.execute(querydel)
 	rowsdel = cur.fetchall()
 	for ro in rowsdel:
-		dele = ro
-		print dele
-	query = """SELECT id FROM app_colonia_frente WHERE "descripcion_Colonia" = 'SANTA FE' AND delegacion_id = '%s' """ % dele
+		dele = ro[0]
+	query = """SELECT id FROM app_colonia_frente WHERE "descripcion_Colonia" = '%s' AND delegacion_id = '%s' """ % (colonia,dele)
 	cur.execute(query)
 	rows = cur.fetchall()
-	print "\nShow me the databases:\n"
 	for row in rows:
-		print row
+		col = row
+	queryrut = """SELECT id FROM app_ruta WHERE "descripcion_Ruta" = '%s'""" % ruta
+	cur.execute(queryrut)
+	rowsrut = cur.fetchall()
+	for rowrut in rowsrut:
+		rutas = rowrut
+		print "Rutas"
+		print rutas
 	print "Empieza",nombre, aparterno,amaterno, cumpleanos, telefono, mail, calle, cp, numeroexterno, numerointerno, colonia, delegacion,  entregas, cupon, fvencimiento, activo, categoria, subcategoria1,
 	subcategoria2, subcategoria3, created, ruta, distribucion, empresa, puesto, referencia, dotacion, ordenentrega, embolsado

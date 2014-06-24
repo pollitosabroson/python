@@ -59,10 +59,10 @@ for line in reader:
 		entregas = "casa"
 	else:
 		entregas = "oficina"
-	# if  telefono == '':
-	# 	telefono = "SIN_TELEFONO"
-	# if  cupon == '':
-	# 	cupon = "SIN_CUPON"
+	if  telefono == '':
+		telefono = "SIN_TELEFONO"
+	if  cupon == '':
+		cupon = "SIN_CUPON"
 	querycate = """SELECT id FROM app_categoria WHERE "descripcion_Categoria" = '%s'""" % categoria
 	cur.execute(querycate)
 	rowscate = cur.fetchall()

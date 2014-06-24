@@ -37,7 +37,7 @@ try:
 		#no se encuentra en la url pedimos la ubicacion a google maps
 		else:
 			#agregamos los campos que requerimos
-			add = "%s, %s,%s, Mexico" % (calle,municipio, estado)
+			add = "%s %s,%s, Mexico" % (calle,municipio, estado)
 			print add
 			# agreamos los campos a la url de google
 			geocode_url = "http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false&region=mx" % add

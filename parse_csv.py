@@ -63,16 +63,16 @@ for line in reader:
 		telefono = "SIN_TELEFONO"
 	if  cupon == '':
 		cupon = "SIN_CUPON"
-	querycate = """SELECT id FROM app_categoria WHERE "descripcion_Categoria" = '%s'""" % categoria
-	cur.execute(querycate)
-	rowscate = cur.fetchall()
-	for ro in rowscate:
-		cate = ro[0]
+	if  mail == '':
+		mail = "SIN_CUPON"
+	if  puesto == '':
+		puesto = "SIN_PUESTO"
 	querysub1 = """SELECT id FROM app_subcategoria1 WHERE "descripcion_SubCategoria1" = '%s'""" % subcategoria1
 	cur.execute(querysub1)
 	rowsub1 = cur.fetchall()
 	for rows1 in rowsub1:
 		sub1 = rows1[0]
+		print sub1
 	querysub2 = """SELECT id FROM app_subcategoria2 WHERE "descripcion_SubCategoria2" = '%s'""" % subcategoria2
 	cur.execute(querysub2)
 	rowsub2 = cur.fetchall()
@@ -93,7 +93,7 @@ for line in reader:
 	rows = cur.fetchall()
 	for row in rows:
 		col = row[0]
-	queryrut = """SELECT id FROM app_ruta WHERE "numero_Ruta" = '%s'""" % ruta
+	queryrut = """SELECT id FROM app_ruta WHERE "descripcion_Ruta" = '%s'""" % ruta
 	cur.execute(queryrut)
 	rowsrut = cur.fetchall()
 	for rowrut in rowsrut:
@@ -104,5 +104,5 @@ for line in reader:
 	for rowemp in rowsemp:
 		empresas = rowemp[0]
 		print id,nombre,amaterno,aparterno,cumpleanos,telefono,mail,calle,cp,numeroexterno,numerointerno,col,dele,entregas,cupon,empresas,puesto,referencia,fvencimiento,activo,rutas,cate,sub1,sub2,sub3,dotacion,ordenentrega,embolsado
-	queryinsert ="""INSERT INTO app_clientefrente(id,nombre,apellido_Paterno,apellido_Materno,cumpleanos,telefono,mail,calle,cp,numero_Exterior,numero_Interior,Colonia_id,delegacion_id,entregas,cupon,empresa_id,puesto,referencia,fvencimiento,activo,rutas_id,categoria_id,subcategoria1_id,subcategoria2_id,subcategoria3_id,distribucion_id,dotacion,created,orden_entrega,embolsado) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""" % (id,nombre,amaterno,aparterno,cumpleanos,telefono,mail,calle,cp,numeroexterno,numerointerno,col,dele,entregas,cupon,empresas,puesto,referencia,fvencimiento,activo,rutas,cate,sub1,sub2,sub3,distribucion,dotacion,created,ordenentrega,embolsado)
+	queryinsert ="""INSERT INTO app_clientefrente(id,nombre,apellido_Paterno,apellido_Materno,cumpleanos,telefono,mail,"calle",cp,numero_Exterior,numero_Interior,Colonia_id,delegacion_id,entregas,cupon,empresa_id,puesto,referencia,fvencimiento,activo,rutas_id,categoria_id,subcategoria1_id,subcategoria2_id,subcategoria3_id,distribucion_id,dotacion,created,orden_entrega,embolsado) VALUES (%s,"%s","%s","%s",%s,%s,%s,"%s",%s,%s,%s,%s,%s,%s,%s,%s,"%s","%s","%s",%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""" % (id,nombre,amaterno,aparterno,cumpleanos,telefono,mail,calle,cp,numeroexterno,numerointerno,col,dele,entregas,cupon,empresas,puesto,referencia,fvencimiento,activo,rutas,categoria,sub1,sub2,sub3,distribucion,dotacion,created,ordenentrega,embolsado)
 	cur.execute(queryinsert)
